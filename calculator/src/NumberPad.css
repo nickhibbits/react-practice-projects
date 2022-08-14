@@ -1,0 +1,17 @@
+.number-pad-component {
+  border: solid 2px lightblue;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.num-group {
+  border: solid 2px orange;
+  display: flex;
+  flex-direction: row;
+}
+
+.num-button {
+  border: solid 2px lightgreen;
+  /* margin: 3%; */
+}
