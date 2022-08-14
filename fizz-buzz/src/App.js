@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
+  function startFizzBuzz() {
+    console.log("fizzBuzz");
+  }
+
+  startFizzBuzz();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      - Write a program that prints the numbers from 1 to 100. <br />
+      - But for multiples of three print “Fizz” instead of the number and for
+      the multiples of five print “Buzz”. <br />
+      - For numbers which are multiples of both three and five print “FizzBuzz”.
+      <br />
+      Check the console for Fizz Buzz
+      <br />
     </div>
   );
 }
