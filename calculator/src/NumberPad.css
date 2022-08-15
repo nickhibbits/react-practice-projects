@@ -1,6 +1,4 @@
 .number-pad-component {
-  border: solid 4px black;
-  border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -31,7 +29,6 @@
   justify-content: center;
   margin: 2%;
   transition: 0.2s ease;
-  /* margin: 3%; */
 }
 
 .num-button:hover {

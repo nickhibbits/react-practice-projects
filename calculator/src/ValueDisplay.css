@@ -1,0 +1,12 @@
+.value-display-component {
+  border: solid 2px lightgray;
+  height: 3rem;
+  margin-bottom: 5%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.value-display-wrapper {
+  font-size: 2.5rem;
+}

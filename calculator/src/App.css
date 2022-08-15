@@ -5,3 +5,9 @@
   border: solid 2px green;
   min-height: 100vh;
 }
+
+.calculator-wrapper {
+  border: solid 4px black;
+  border-radius: 10px;
+  padding: 3%;
+}
