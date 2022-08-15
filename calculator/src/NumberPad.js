@@ -1,7 +1,7 @@
 import "../src/NumberPad.css";
 import React from "react";
 
-function NumberPad() {
+function NumberPad({ selectNumber }) {
   const numberRows = [
     [1, 2, 3],
     [4, 5, 6],
@@ -15,9 +15,24 @@ function NumberPad() {
           {numberRows.map((row, i) => {
             return i === groupIndex ? (
               <React.Fragment key={row[i]}>
-                <div className="num-button">{row[0]}</div>
-                <div className="num-button">{row[1]}</div>
-                <div className="num-button">{row[2]}</div>
+                <div
+                  className="num-button"
+                  onClick={() => selectNumber(row[0])}
+                >
+                  {row[0]}
+                </div>
+                <div
+                  className="num-button"
+                  onClick={() => selectNumber(row[1])}
+                >
+                  {row[1]}
+                </div>
+                <div
+                  className="num-button"
+                  onClick={() => selectNumber(row[2])}
+                >
+                  {row[2]}
+                </div>
               </React.Fragment>
             ) : null;
           })}
