@@ -1,41 +1,28 @@
 import "../src/NumberPad.css";
+import React from "react";
+
 function NumberPad() {
-  const group1 = [1, 2, 3];
-  const group2 = [4, 5, 6];
-  const group3 = [7, 8, 9];
+  const numberRows = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ];
 
   return (
     <div className="number-pad-component">
-      {/* {[...Array(10)].map((_, i) => {
-        return <div className="number-button">{i}</div>;
-      })} */}
-      <div className="num-group" style={{ gridArea: "1 / 1 / 1 / 3" }}>
-        {group1.map((num) => {
-          return (
-            <div key={num} className="num-button">
-              {num}
-            </div>
-          );
-        })}
-      </div>
-      <div className="num-group" style={{ gridArea: "1 / 1 / 1 / 3" }}>
-        {group2.map((num) => {
-          return (
-            <div key={num} className="num-button">
-              {num}
-            </div>
-          );
-        })}
-      </div>
-      <div className="num-group" style={{ gridArea: "1 / 1 / 1 / 3" }}>
-        {group3.map((num) => {
-          return (
-            <div key={num} className="num-button">
-              {num}
-            </div>
-          );
-        })}
-      </div>
+      {[...Array(3)].map((_, groupIndex) => (
+        <div key={groupIndex} className={`num-group-${groupIndex} num-group`}>
+          {numberRows.map((row, i) => {
+            return i === groupIndex ? (
+              <React.Fragment key={row[i]}>
+                <div className="num-button">{row[0]}</div>
+                <div className="num-button">{row[1]}</div>
+                <div className="num-button">{row[2]}</div>
+              </React.Fragment>
+            ) : null;
+          })}
+        </div>
+      ))}
     </div>
   );
 }

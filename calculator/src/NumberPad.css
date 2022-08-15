@@ -1,17 +1,41 @@
 .number-pad-component {
-  border: solid 2px lightblue;
+  border: solid 4px black;
+  border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  padding: 2%;
 }
 
 .num-group {
-  border: solid 2px orange;
   display: flex;
-  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.num-group-0 {
+  grid-area: 1 / 1 / 1 / 4;
+}
+.num-group-1 {
+  grid-area: 2 / 1 / 2 / 4;
+}
+.num-group-2 {
+  grid-area: 3 / 1 / 3 / 4;
 }
 
 .num-button {
-  border: solid 2px lightgreen;
+  border: solid 2px rgb(211, 211, 211);
+  border-radius: 10px;
+  width: 80px;
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  margin: 2%;
+  transition: 0.2s ease;
   /* margin: 3%; */
+}
+
+.num-button:hover {
+  cursor: pointer;
+  background-color: rgb(149, 224, 199);
+  transition: 0.5s ease;
 }
