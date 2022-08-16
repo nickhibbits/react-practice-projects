@@ -1,0 +1,10 @@
+.operators-component {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  padding: 2%;
+}
+
+.operator-button {
+  margin: 5% 0;
+}
