@@ -6,11 +6,12 @@ function NumberPad({ selectNumber }) {
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
+    [0, ".", "C"],
   ];
 
   return (
     <div className="number-pad-component">
-      {[...Array(3)].map((_, groupIndex) => (
+      {[...Array(4)].map((_, groupIndex) => (
         <div key={groupIndex} className={`num-group-${groupIndex} num-group`}>
           {numberRows.map((row, i) => {
             return i === groupIndex ? (

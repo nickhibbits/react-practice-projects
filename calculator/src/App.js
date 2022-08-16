@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import NumberPad from "./NumberPad";
 import ValueDisplay from "./ValueDisplay";
@@ -6,11 +6,16 @@ import ValueDisplay from "./ValueDisplay";
 function App() {
   const [numbers, setNumbers] = useState([]);
 
-  const displayNumber = (num) => {
-    setNumbers((numbers) => [...numbers, num]);
-    console.log("numbers", numbers);
-    return numbers;
+  const displayNumber = (input) => {
+    console.log("input", input);
+    numbers === []
+      ? setNumbers(() => [input])
+      : setNumbers((numbers) => [...numbers, input]);
   };
+
+  useEffect(() => {
+    console.log("numbers", numbers);
+  });
 
   return (
     <div className="App">
