@@ -9,7 +9,6 @@ function App() {
   const [numberSet, setNumberSet] = useState([]);
 
   const display = (input) => {
-    // console.log("input", input);
     switch (input) {
       case "C":
         setNumberDisplay([]);
@@ -23,28 +22,35 @@ function App() {
     }
   };
 
-  const performOp = (operator) => {
-    // console.log("operator", operator);
-    console.log("numbers", numberDisplay);
+  const performOperation = (numberSet) => {
+    // console.log("here");
+    console.log(eval(numberSet.join("")));
+  };
+
+  const groupNumbers = (operator) => {
     const current = numberDisplay.join("");
     const _number = parseInt(current);
 
     switch (operator) {
-      case "-":
+      case "=":
         setNumberSet((numberSet) => [...numberSet, _number]);
         console.log("numberSet", numberSet);
-        console.log(eval(numberSet.join("")));
+        // performOperation(numberSet);
         break;
       default:
         setNumberSet((numberSet) => [...numberSet, _number, operator]);
         setNumberDisplay([]);
-        console.log("numberSet", numberSet);
         break;
     }
   };
 
   useEffect(() => {
     console.log("numberSet", numberSet);
+    console.log(numberSet[-1]);
+    if (typeof numberSet[numberSet.length - 1] !== "string") {
+      console.log("here");
+      performOperation(numberSet);
+    }
   });
 
   return (
@@ -53,7 +59,7 @@ function App() {
         <ValueDisplay numbers={numberDisplay} />
         <div className="buttons-wrapper">
           <NumberPad selectNumber={display} />
-          <Operators performOp={performOp} />
+          <Operators groupNumbers={groupNumbers} />
         </div>
       </div>
     </div>
