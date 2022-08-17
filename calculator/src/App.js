@@ -7,6 +7,7 @@ import ValueDisplay from "./ValueDisplay";
 function App() {
   const [numberDisplay, setNumberDisplay] = useState([]);
   const [numberSet, setNumberSet] = useState([]);
+  const [ready, setReady] = useState(false);
 
   const display = (input) => {
     switch (input) {
@@ -17,25 +18,28 @@ function App() {
       default:
         numberDisplay === []
           ? setNumberDisplay(() => [input])
-          : setNumberDisplay((number) => [...number, input]);
+          : setNumberDisplay((numberDisplay) => [...numberDisplay, input]);
         break;
     }
   };
 
-  const performOperation = (numberSet) => {
-    // console.log("here");
-    console.log(eval(numberSet.join("")));
-  };
+  function performOperation(numberSet) {
+    const result = Function("return " + numberSet.join(""));
+    // console.log("result", result());
+    setReady(false);
+    return result();
+  }
 
   const groupNumbers = (operator) => {
+    console.log("numberDisplay", numberDisplay);
+
     const current = numberDisplay.join("");
     const _number = parseInt(current);
 
     switch (operator) {
       case "=":
         setNumberSet((numberSet) => [...numberSet, _number]);
-        console.log("numberSet", numberSet);
-        // performOperation(numberSet);
+        setReady(true);
         break;
       default:
         setNumberSet((numberSet) => [...numberSet, _number, operator]);
@@ -46,12 +50,12 @@ function App() {
 
   useEffect(() => {
     console.log("numberSet", numberSet);
-    console.log(numberSet[-1]);
-    if (typeof numberSet[numberSet.length - 1] !== "string") {
-      console.log("here");
-      performOperation(numberSet);
+    console.log("numberDisplay", numberDisplay);
+    if (ready) {
+      setNumberSet([performOperation(numberSet)]);
+      setNumberDisplay([performOperation(numberSet)]);
     }
-  });
+  }, [ready]);
 
   return (
     <div className="App">
