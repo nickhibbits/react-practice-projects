@@ -25,17 +25,14 @@ function App() {
   };
 
   function performOperation(numberSet) {
+    console.log("numberSet", numberSet);
     const result = Function("return " + numberSet.join(""));
-    // console.log("result", result());
     setReady(false);
     setChainOp(true);
     return result();
   }
 
   const groupNumbers = (operator, chainOp) => {
-    console.log("numberDisplay", numberDisplay);
-    console.log("chainOp", chainOp);
-
     const current = numberDisplay.join("");
     const _number = parseInt(current);
 
@@ -43,6 +40,16 @@ function App() {
       case "=":
         setNumberSet((numberSet) => [...numberSet, _number]);
         setReady(true);
+        break;
+      case "x":
+        if (chainOp) {
+          setNumberSet([_number, "*"]);
+          setNumberDisplay([]);
+          setChainOp((chainOp) => !chainOp);
+          return;
+        }
+        setNumberSet((numberSet) => [...numberSet, _number, "*"]);
+        setNumberDisplay([]);
         break;
       default:
         if (chainOp) {
@@ -58,8 +65,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("numberSet", numberSet);
-    console.log("numberDisplay", numberDisplay);
     if (ready) {
       setNumberSet([performOperation(numberSet)]);
       setNumberDisplay([performOperation(numberSet)]);
