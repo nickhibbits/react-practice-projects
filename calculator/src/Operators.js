@@ -1,5 +1,5 @@
 import "./Operators.css";
-function Operators({ groupNumbers }) {
+function Operators({ groupNumbers, chainOp }) {
   const operatorSet = ["+", "-", "x", "/", "="];
   return (
     <div className="operators-component">
@@ -7,7 +7,7 @@ function Operators({ groupNumbers }) {
         return (
           <div
             className="num-button operator-button"
-            onClick={() => groupNumbers(operator)}
+            onClick={() => groupNumbers(operator, chainOp)}
           >
             {operator}
           </div>

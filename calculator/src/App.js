@@ -8,6 +8,7 @@ function App() {
   const [numberDisplay, setNumberDisplay] = useState([]);
   const [numberSet, setNumberSet] = useState([]);
   const [ready, setReady] = useState(false);
+  const [chainOp, setChainOp] = useState(false);
 
   const display = (input) => {
     switch (input) {
@@ -27,11 +28,13 @@ function App() {
     const result = Function("return " + numberSet.join(""));
     // console.log("result", result());
     setReady(false);
+    setChainOp(true);
     return result();
   }
 
-  const groupNumbers = (operator) => {
+  const groupNumbers = (operator, chainOp) => {
     console.log("numberDisplay", numberDisplay);
+    console.log("chainOp", chainOp);
 
     const current = numberDisplay.join("");
     const _number = parseInt(current);
@@ -42,6 +45,12 @@ function App() {
         setReady(true);
         break;
       default:
+        if (chainOp) {
+          setNumberSet([_number, operator]);
+          setNumberDisplay([]);
+          setChainOp((chainOp) => !chainOp);
+          return;
+        }
         setNumberSet((numberSet) => [...numberSet, _number, operator]);
         setNumberDisplay([]);
         break;
@@ -63,7 +72,7 @@ function App() {
         <ValueDisplay numbers={numberDisplay} />
         <div className="buttons-wrapper">
           <NumberPad selectNumber={display} />
-          <Operators groupNumbers={groupNumbers} />
+          <Operators groupNumbers={groupNumbers} chainOp={chainOp} />
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./ValueDisplay.css";
 
 function ValueDisplay({ numbers }) {
