@@ -69,7 +69,7 @@ function App() {
       setNumberSet([performOperation(numberSet)]);
       setNumberDisplay([performOperation(numberSet)]);
     }
-  }, [ready]);
+  }, [ready, numberSet]);
 
   return (
     <div className="App">
