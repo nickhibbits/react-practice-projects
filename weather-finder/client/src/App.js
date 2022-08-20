@@ -20,14 +20,17 @@ function App() {
   return (
     <div className="App">
       <form className="input-form">
-        <label>Zip Code</label>
-        <input type="text"></input>
+        <div className="location-info-wrapper">
+          <label>City</label>
+          <input type="text"></input>
+        </div>
+        <div className="location-info-wrapper">
+          <label>State</label>
+          <input type="text"></input>
+        </div>
         <button onClick={() => setSubmitted((submitted) => !submitted)}>
           Submit
         </button>
-        <div>
-          {backendData.length === 1 ? "loading" : backendData.messages[1]}
-        </div>
       </form>
     </div>
   );
