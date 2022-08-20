@@ -61,30 +61,7 @@ const testObject = {
       let { myString, maxRepeat } = test;
       const stringArray = myString.split("");
 
-      const parsedArray = stringArray.filter((item, i, array) => {
-        switch (maxRepeat) {
-          case 1:
-            if (array[i] === array[i - 1]) {
-              return;
-            }
-            return item;
-          case 2:
-            if (array[i] === array[i - 1]) {
-              return item;
-            }
-            if (array[i] === array[i + 1]) {
-              return;
-            }
-          default:
-            if (array[i] === array[i - 1] && array[i] === array[i + 1]) {
-              return item;
-            }
-            if (array[i] === array[i + 2]) {
-              return;
-            }
-            break;
-        }
-      });
+      const parsedArray = stringArray.filter((item, i, array) => {});
 
       test.myResult = parsedArray.join("");
       console.log("myResult", parsedArray);
