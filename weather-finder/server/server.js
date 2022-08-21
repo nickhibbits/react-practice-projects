@@ -13,7 +13,7 @@ app.listen(8080, () => {
   console.log("Server running on port 8080");
 });
 
-app.post("/getCurrentWeather", jsonParser, async (req, res) => {
+app.post("/getCoordinates", jsonParser, async (req, res) => {
   console.log("req.body", req.body);
   const { city, state } = req.body;
 
@@ -23,8 +23,6 @@ app.post("/getCurrentWeather", jsonParser, async (req, res) => {
     .then((res) => res.json())
     .then((data) => {
       console.log("data", data);
-      return data;
+      res.send(data);
     });
-
-  // res.json({ messages: ["hello", "howdy", "goodbye"] });
 });

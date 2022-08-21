@@ -3,7 +3,8 @@ import "../styles/App.css";
 import InputForm from "./InputForm";
 
 function App() {
-  // const [data, setData] = useState();
+  const [coordinates, setCoordinates] = useState();
+  console.log("coordinates", coordinates);
 
   const alert = async (city, state) => {
     const body = {
@@ -11,7 +12,7 @@ function App() {
       state,
     };
 
-    await fetch("/getCurrentWeather", {
+    const response = await fetch("/getCoordinates", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,10 +20,17 @@ function App() {
       body: JSON.stringify(body),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log("data", data);
-      });
+      .then((data) => data);
+
+    setCoordinates(response);
   };
+
+  useEffect(() => {
+    if (coordinates) {
+      console.log("coordinates available");
+      const { lat, lon } = coordinates[0];
+    }
+  }, [coordinates]);
 
   return (
     <div className="App">
