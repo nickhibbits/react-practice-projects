@@ -1,31 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/App.css";
 import InputForm from "./InputForm";
 
 function App() {
-  const [backendData, setBackendData] = useState([{}]);
-  const [submitted, setSubmitted] = useState(false);
+  // const [data, setData] = useState();
 
-  // console.log("backendData", backendData);
+  const alert = async (city, state) => {
+    const body = {
+      city,
+      state,
+    };
 
-  const handleSubmit = (city, state) => {
-    return setSubmitted((submitted) => !submitted);
-  };
-
-  useEffect(() => {
-    fetch("/api")
+    await fetch("/getCurrentWeather", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
       .then((res) => res.json())
       .then((data) => {
-        setTimeout(() => {
-          console.log("submitted", submitted);
-          // setBackendData(() => data);
-        }, 1000);
+        console.log("data", data);
       });
-  }, [submitted]);
+  };
 
   return (
     <div className="App">
-      <InputForm handleSubmit={handleSubmit} />
+      <InputForm alert={alert} />
     </div>
   );
 }

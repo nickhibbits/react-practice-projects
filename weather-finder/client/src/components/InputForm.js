@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 
-function InputForm({ handleSubmit }) {
+function InputForm({ alert }) {
   const [city, setCity] = useState();
   const [state, setState] = useState();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(city, state);
+  };
+
   return (
     <div className="input-form-component">
-      <form className="input-form">
+      <form className="input-form" onSubmit={(e) => handleSubmit(e)}>
         <div className="location-info-wrapper">
           <label>City</label>
           <input type="text" onChange={(e) => setCity(e.target.value)}></input>
@@ -15,7 +20,7 @@ function InputForm({ handleSubmit }) {
           <label>State</label>
           <input type="text" onChange={(e) => setState(e.target.value)}></input>
         </div>
-        <button onClick={() => handleSubmit(city, state)}>Submit</button>
+        <input type="submit" value="Submit" />
       </form>
     </div>
   );
