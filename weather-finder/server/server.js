@@ -26,3 +26,17 @@ app.post("/getCoordinates", jsonParser, async (req, res) => {
       res.send(data);
     });
 });
+
+app.post("/getWeather", jsonParser, async (req, res) => {
+  console.log("req.body", req.body);
+  const { lat, lon } = req.body;
+
+  await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${process.env.APIKEY}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("data", data);
+      res.send(data);
+    });
+});
