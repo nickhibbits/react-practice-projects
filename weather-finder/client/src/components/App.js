@@ -2,56 +2,28 @@ import { useEffect, useState } from "react";
 import "../styles/App.css";
 import InputForm from "./InputForm";
 import WeatherDisplay from "./WeatherDisplay";
+import { getCoordinates, getWeather } from "../utils/WeatherAPI";
 
 function App() {
   const [coordinates, setCoordinates] = useState();
   const [weather, setWeather] = useState();
 
-  const getWeather = async (lat, lon) => {
-    const body = {
-      lat,
-      lon,
-    };
+  const _getWeather = async (lat, lon) => {
+    const data = await getWeather(lat, lon);
+    setWeather(data);
+  };
 
-    const response = await fetch("/getWeather", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((data) => data);
-
-    setWeather(response);
+  const _getCoordinates = async (city, state) => {
+    const data = await getCoordinates(city, state);
+    setCoordinates(data);
   };
 
   useEffect(() => {
     if (coordinates) {
       const { lat, lon } = coordinates[0];
-      console.log(lat, lon);
-      getWeather(lat, lon);
+      _getWeather(lat, lon);
     }
   }, [coordinates]);
-
-  const getCoordinates = async (city, state) => {
-    const body = {
-      city,
-      state,
-    };
-
-    const response = await fetch("/getCoordinates", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((data) => data);
-
-    setCoordinates(response);
-  };
 
   if (weather) {
     return (
@@ -60,9 +32,10 @@ function App() {
       </div>
     );
   }
+
   return (
     <div className="App">
-      <InputForm alert={getCoordinates} />
+      <InputForm alert={(city, state) => _getCoordinates(city, state)} />
     </div>
   );
 }
