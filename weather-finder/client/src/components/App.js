@@ -6,11 +6,11 @@ import { getCoordinates, getWeather } from "../utils/WeatherAPI";
 
 function App() {
   const [coordinates, setCoordinates] = useState();
-  const [weather, setWeather] = useState();
+  const [currentWeather, setCurrentWeather] = useState();
 
   const _getWeather = async (lat, lon) => {
     const data = await getWeather(lat, lon);
-    setWeather(data);
+    setCurrentWeather(data);
   };
 
   const _getCoordinates = async (city, state) => {
@@ -19,16 +19,22 @@ function App() {
   };
 
   useEffect(() => {
-    if (coordinates) {
-      const { lat, lon } = coordinates[0];
-      _getWeather(lat, lon);
+    let mounted = true;
+
+    if (mounted) {
+      if (coordinates) {
+        const { lat, lon } = coordinates[0];
+        _getWeather(lat, lon);
+      }
     }
+
+    return () => (mounted = false);
   }, [coordinates]);
 
-  if (weather) {
+  if (currentWeather) {
     return (
       <div className="App">
-        <WeatherDisplay weather={weather} />
+        <WeatherDisplay currentWeather={currentWeather} />
       </div>
     );
   }

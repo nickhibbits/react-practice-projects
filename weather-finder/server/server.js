@@ -14,7 +14,6 @@ app.listen(8080, () => {
 });
 
 app.post("/getCoordinates", jsonParser, async (req, res) => {
-  console.log("req.body", req.body);
   const { city, state } = req.body;
 
   await fetch(
@@ -22,13 +21,11 @@ app.post("/getCoordinates", jsonParser, async (req, res) => {
   )
     .then((res) => res.json())
     .then((data) => {
-      console.log("data", data);
       res.send(data);
     });
 });
 
 app.post("/getWeather", jsonParser, async (req, res) => {
-  console.log("req.body", req.body);
   const { lat, lon } = req.body;
 
   await fetch(
@@ -36,7 +33,6 @@ app.post("/getWeather", jsonParser, async (req, res) => {
   )
     .then((res) => res.json())
     .then((data) => {
-      console.log("data", data);
       res.send(data);
     });
 });
