@@ -10,7 +10,7 @@ function createDog(breed, name) {
 // store dog actions in single object to avoid duplicating the function for each new dog created
 const dogActions = {
   bark: function () {
-    return "bark bark";
+    return `bark bark ${this.name}`;
   },
 };
 
@@ -26,6 +26,3 @@ class Person {
 }
 
 const billy = new Person("billy");
-console.log(billy);
-
-console.log(Object.hasOwn(billy, "greeting"));
