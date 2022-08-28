@@ -5,8 +5,15 @@ import WeatherDisplay from "./WeatherDisplay";
 import { getCoordinates, getWeather } from "../utils/WeatherAPI";
 
 function App() {
+  const [city, setCity] = useState();
+  const [state, setState] = useState();
   const [coordinates, setCoordinates] = useState();
   const [currentWeather, setCurrentWeather] = useState();
+
+  const updateValues = (city, state) => {
+    setCity(city);
+    setState(state);
+  };
 
   const _getWeather = async (lat, lon) => {
     const data = await getWeather(lat, lon);
@@ -19,16 +26,19 @@ function App() {
   };
 
   useEffect(() => {
-    let mounted = true;
+    if (city && state) {
+      _getCoordinates(city, state);
+    }
+  }, [city, state]);
 
+  useEffect(() => {
     if (mounted) {
       if (coordinates) {
+        console.log("coordinates", coordinates);
         const { lat, lon } = coordinates[0];
         _getWeather(lat, lon);
       }
     }
-
-    return () => (mounted = false);
   }, [coordinates]);
 
   if (currentWeather) {
@@ -41,7 +51,7 @@ function App() {
 
   return (
     <div className="App">
-      <InputForm alert={(city, state) => _getCoordinates(city, state)} />
+      <InputForm alert={(city, state) => updateValues(city, state)} />
     </div>
   );
 }
