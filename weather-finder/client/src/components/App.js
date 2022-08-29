@@ -32,12 +32,10 @@ function App() {
   }, [city, state]);
 
   useEffect(() => {
-    if (mounted) {
-      if (coordinates) {
-        console.log("coordinates", coordinates);
-        const { lat, lon } = coordinates[0];
-        _getWeather(lat, lon);
-      }
+    if (coordinates) {
+      console.log("coordinates", coordinates);
+      const { lat, lon } = coordinates[0];
+      _getWeather(lat, lon);
     }
   }, [coordinates]);
 
