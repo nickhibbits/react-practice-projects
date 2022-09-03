@@ -1,5 +1,4 @@
 require("dotenv").config();
-console.log(process.env.APIKEY);
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -27,9 +26,23 @@ app.post("/getCoordinates", jsonParser, async (req, res) => {
 
 app.post("/getWeather", jsonParser, async (req, res) => {
   const { lat, lon } = req.body;
+  console.log("here 🏓");
 
   await fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${process.env.APIKEY}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      res.send(data);
+    });
+});
+
+app.post("/getForecast", jsonParser, async (req, res) => {
+  const { lat, lon } = req.body;
+  console.log("here 🟣");
+
+  await fetch(
+    `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=7&appid=${process.env.APIKEY}`
   )
     .then((res) => res.json())
     .then((data) => {

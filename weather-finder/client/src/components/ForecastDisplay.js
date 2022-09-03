@@ -1,6 +1,7 @@
 import React from "react";
 
-function ForecastDisplay() {
+function ForecastDisplay({ forecast }) {
+  console.log("forecast", forecast);
   return <div>ForecastDisplay</div>;
 }
 

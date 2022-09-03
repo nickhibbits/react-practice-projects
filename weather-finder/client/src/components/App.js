@@ -19,13 +19,15 @@ function App() {
     setCallType(id);
   };
 
-  const _getWeather = async (lat, lon) => {
-    const data = await getWeather(lat, lon);
+  const _getWeather = async (lat, lon, callType) => {
+    const data = await getWeather(lat, lon, callType);
     if (callType === "current") {
       return setCurrentWeather(data);
     }
 
-    setForecast("yoooo");
+    if (callType === "forecast") {
+      setForecast(data);
+    }
   };
 
   const _getCoordinates = async (city, state) => {
@@ -44,10 +46,7 @@ function App() {
       console.log("coordinates", coordinates);
       const { lat, lon } = coordinates[0];
 
-      if (callType === "current") {
-        _getWeather(lat, lon);
-      }
-      console.log("forecast call boi");
+      _getWeather(lat, lon, callType);
     }
   }, [coordinates, callType]);
 
