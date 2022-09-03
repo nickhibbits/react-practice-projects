@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/WeatherDisplay.css";
 
-function WeatherDisplay({ currentWeather }) {
+function CurrentWeatherDisplay({ currentWeather }) {
   console.log("weather", currentWeather);
   const { main, name } = currentWeather;
   const { temp, temp_max, temp_min, feels_like } = main;
@@ -36,4 +36,4 @@ function WeatherDisplay({ currentWeather }) {
   );
 }
 
-export default WeatherDisplay;
+export default CurrentWeatherDisplay;

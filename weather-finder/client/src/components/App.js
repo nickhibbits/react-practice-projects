@@ -1,23 +1,31 @@
 import { useEffect, useState } from "react";
 import "../styles/App.css";
 import InputForm from "./InputForm";
-import WeatherDisplay from "./WeatherDisplay";
+import CurrentWeatherDisplay from "./CurrentWeatherDisplay";
 import { getCoordinates, getWeather } from "../utils/WeatherAPI";
+import ForecastDisplay from "./ForecastDisplay";
 
 function App() {
   const [city, setCity] = useState();
   const [state, setState] = useState();
   const [coordinates, setCoordinates] = useState();
   const [currentWeather, setCurrentWeather] = useState();
+  const [forecast, setForecast] = useState();
+  const [callType, setCallType] = useState();
 
-  const updateValues = (city, state) => {
+  const updateValues = (city, state, id) => {
     setCity(city);
     setState(state);
+    setCallType(id);
   };
 
   const _getWeather = async (lat, lon) => {
     const data = await getWeather(lat, lon);
-    setCurrentWeather(data);
+    if (callType === "current") {
+      return setCurrentWeather(data);
+    }
+
+    setForecast("yoooo");
   };
 
   const _getCoordinates = async (city, state) => {
@@ -35,21 +43,33 @@ function App() {
     if (coordinates) {
       console.log("coordinates", coordinates);
       const { lat, lon } = coordinates[0];
-      _getWeather(lat, lon);
+
+      if (callType === "current") {
+        _getWeather(lat, lon);
+      }
+      console.log("forecast call boi");
     }
-  }, [coordinates]);
+  }, [coordinates, callType]);
 
   if (currentWeather) {
     return (
       <div className="App">
-        <WeatherDisplay currentWeather={currentWeather} />
+        <CurrentWeatherDisplay currentWeather={currentWeather} />
+      </div>
+    );
+  }
+
+  if (forecast) {
+    return (
+      <div className="App">
+        <ForecastDisplay forecast={forecast} />
       </div>
     );
   }
 
   return (
     <div className="App">
-      <InputForm alert={(city, state) => updateValues(city, state)} />
+      <InputForm alert={(city, state, id) => updateValues(city, state, id)} />
     </div>
   );
 }

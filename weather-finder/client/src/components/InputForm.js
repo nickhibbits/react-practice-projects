@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 function InputForm({ alert }) {
   const [city, setCity] = useState();
   const [state, setState] = useState();
 
-  const handleSubmit = (e) => {
+  const current = useRef("current");
+  const forecast = useRef("forecast");
+
+  const handleSubmit = (e, element) => {
     e.preventDefault();
-    alert(city, state);
+    alert(city, state, element.current.id);
   };
 
   return (
@@ -20,7 +23,21 @@ function InputForm({ alert }) {
           <label>State</label>
           <input type="text" onChange={(e) => setState(e.target.value)}></input>
         </div>
-        <input type="submit" value="Submit" />
+
+        <input
+          ref={current}
+          value="Get Current Weather"
+          type="submit"
+          id="current"
+          onClick={(e) => handleSubmit(e, current)}
+        />
+        <input
+          ref={forecast}
+          value="4 day forecast"
+          type="submit"
+          id="forecast"
+          onClick={(e) => handleSubmit(e, forecast)}
+        />
       </form>
     </div>
   );
