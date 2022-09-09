@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 function CreateUserForm() {
   const [fullName, setFullName] = useState("");
@@ -8,38 +8,38 @@ function CreateUserForm() {
 
   return (
     <div className="create__user__form__component">
-      <div className="form-wrapper">
+      <div className="form__wrapper">
         <form action="">
           <div className="input-wrapper">
-            <p className="input-title"></p>
+            <p className="input-title">Full Name</p>
             <input
               type="text"
               value={fullName}
-              onChange={() => setFullName(e.target.value)}
+              onChange={(e) => setFullName(e.target.value)}
             />
           </div>
           <div className="input-wrapper">
-            <p className="input-title"></p>
+            <p className="input-title">Username</p>
             <input
               type="text"
               value={username}
-              onChange={() => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="input-wrapper">
-            <p className="input-title"></p>
+            <p className="input-title">Password</p>
             <input
               type="text"
               value={password}
-              onChange={() => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="input-wrapper">
-            <p className="input-title"></p>
+            <p className="input-title">Confirm Password</p>
             <input
               type="text"
               value={confirmPassword}
-              onChange={() => setConfirmPassword(e.target.value)}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
         </form>

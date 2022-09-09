@@ -47,6 +47,12 @@ form {
   color: rgb(93, 93, 93);
 }
 
-.login__form__submit {
-  max-width: 8rem;
+.button-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 5px;
+}
+
+.form__submit {
+  min-width: none;
 }

@@ -10,6 +10,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [newUser, setNewUser] = useState(false);
 
+  console.log("newUser", newUser);
+
   function handleSubmit(e, data, createUser) {
     e.preventDefault();
 
@@ -66,7 +68,10 @@ function App() {
       {newUser ? (
         <CreateUserForm handleSubmit={handleSubmit} />
       ) : (
-        <LoginForm handleSubmit={handleSubmit} />
+        <LoginForm
+          handleSubmit={handleSubmit}
+          alertNewUser={() => setNewUser(true)}
+        />
       )}
     </div>
   );
