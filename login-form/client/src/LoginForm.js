@@ -1,20 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
 
-export default function LoginForm() {
+export default function LoginForm({ handleSubmit }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log("username", username);
-    console.log("password", password);
-  }
 
   return (
     <div className="login__form__component">
       <div className="login__form__wrapper">
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={(e) => handleSubmit(e, username, password)}>
           <div className="input-wrapper">
             <p className="input-title">Username</p>
             <input
