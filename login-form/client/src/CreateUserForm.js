@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 
-function CreateUserForm() {
+function CreateUserForm({ handleSubmit }) {
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  function verifyPassword(_password) {
+    setConfirmPassword(_password);
+    if (password !== _password) {
+      alert("Passwords don't match");
+    }
+  }
+
   return (
     <div className="create__user__form__component">
       <div className="form__wrapper">
-        <form action="">
+        <form
+          onSubmit={(e) => handleSubmit(e, { username, password, fullName })}
+        >
           <div className="input-wrapper">
             <p className="input-title">Full Name</p>
             <input
@@ -39,9 +48,15 @@ function CreateUserForm() {
             <input
               type="text"
               value={confirmPassword}
+              onBlur={(e) => verifyPassword(e.target.value)}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
+          <input
+            type="submit"
+            className="form__submit"
+            value="Create Profile"
+          />
         </form>
       </div>
     </div>

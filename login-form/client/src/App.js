@@ -4,9 +4,11 @@ import CreateUserForm from "./CreateUserForm";
 import LoginForm from "./LoginForm";
 
 function App() {
-  const [submitted, setSubmitted] = useState(false);
+  const [submitLogin, setSubmitLogin] = useState(false);
+  const [submitCreateUser, setSubmitCreateUser] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [newUser, setNewUser] = useState(false);
 
@@ -15,15 +17,12 @@ function App() {
   function handleSubmit(e, data, createUser) {
     e.preventDefault();
 
-    if (createUser) {
-      console.log("create user", data);
-    } else {
-      console.log("login user", data);
-      setUsername(username);
-      setPassword(password);
-    }
+    console.log(data);
 
-    setSubmitted(true);
+    setUsername(data.username);
+    setPassword(data.password);
+
+    createUser ? setSubmitCreateUser(true) : setSubmitLogin(true);
   }
 
   async function loginUser() {
@@ -50,17 +49,43 @@ function App() {
     return response;
   }
 
+  async function createUser() {
+    const body = {
+      username,
+      password,
+      fullName,
+    };
+
+    let response = await fetch("/createUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("users", data);
+        setNewUser(true);
+      });
+
+    return response;
+  }
+
   useEffect(() => {
-    if (submitted) {
+    if (submitLogin) {
       loginUser();
+    }
+  });
+
+  useEffect(() => {
+    if (submitCreateUser) {
+      createUser();
     }
   });
 
   if (loggedIn) {
     return <div className="succes">Success</div>;
-  }
-
-  if (newUser) {
   }
 
   return (
