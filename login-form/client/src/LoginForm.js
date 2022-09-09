@@ -7,7 +7,7 @@ export default function LoginForm({ handleSubmit }) {
 
   return (
     <div className="login__form__component">
-      <div className="login__form__wrapper">
+      <div className="form__wrapper">
         <form onSubmit={(e) => handleSubmit(e, username, password)}>
           <div className="input-wrapper">
             <p className="input-title">Username</p>

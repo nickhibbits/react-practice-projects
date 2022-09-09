@@ -8,11 +8,10 @@
   align-items: center;
 }
 
-.login__form__wrapper {
+.form__wrapper {
   min-width: 20rem;
   min-height: 8rem;
   padding: 2rem;
-
   border: solid 2px rgb(130, 130, 130);
   border-radius: 5px;
   display: flex;

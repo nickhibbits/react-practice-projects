@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import CreateUserForm from "./CreateUserForm";
 import LoginForm from "./LoginForm";
 
 function App() {
@@ -7,11 +8,19 @@ function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [newUser, setNewUser] = useState(false);
 
-  function handleSubmit(e, username, password) {
+  function handleSubmit(e, data, createUser) {
     e.preventDefault();
-    setUsername(username);
-    setPassword(password);
+
+    if (createUser) {
+      console.log("create user", data);
+    } else {
+      console.log("login user", data);
+      setUsername(username);
+      setPassword(password);
+    }
+
     setSubmitted(true);
   }
 
@@ -48,9 +57,17 @@ function App() {
   if (loggedIn) {
     return <div className="succes">Success</div>;
   }
+
+  if (newUser) {
+  }
+
   return (
     <div className="app-component">
-      <LoginForm handleSubmit={handleSubmit} />
+      {newUser ? (
+        <CreateUserForm handleSubmit={handleSubmit} />
+      ) : (
+        <LoginForm handleSubmit={handleSubmit} />
+      )}
     </div>
   );
 }
