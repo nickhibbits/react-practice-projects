@@ -25,8 +25,8 @@ form {
   flex-direction: column;
 }
 
-.input-wrapper:first-of-type {
-  margin-bottom: 0.5rem;
+.input-wrapper {
+  margin-bottom: 0.8rem;
 }
 
 .input-wrapper:last-of-type {
@@ -35,8 +35,17 @@ form {
 
 .input-wrapper {
   display: flex;
+  flex-direction: column;
   min-width: 15rem;
   justify-content: space-between;
+}
+
+.input-title {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 0.8rem;
+  margin-bottom: 0.5em;
+  color: rgb(93, 93, 93);
 }
 
 .login__form__submit {
