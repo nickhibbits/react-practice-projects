@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import CreateUserForm from "./CreateUserForm";
 import LoginForm from "./LoginForm";
+import { loginUser, createUser } from "./utils/UserAPI";
 
 function App() {
   const [submitLogin, setSubmitLogin] = useState(false);
@@ -12,12 +13,10 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [newUser, setNewUser] = useState(false);
 
-  console.log("newUser", newUser);
-
   function handleSubmit(e, data, createUser) {
     e.preventDefault();
 
-    console.log(data);
+    // console.log(data);
 
     setUsername(data.username);
     setPassword(data.password);
@@ -26,63 +25,34 @@ function App() {
     createUser ? setSubmitCreateUser(true) : setSubmitLogin(true);
   }
 
-  async function loginUser() {
-    const userInfo = {
-      username,
-      password,
-    };
+  async function handleResponse(callType) {
+    let response;
 
-    let response = await fetch("/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        if (data.response === "success") {
-          setLoggedIn(true);
-        }
-      });
+    if (callType === "login") {
+      response = await loginUser(username, password);
+    }
 
-    return response;
-  }
+    if (callType === "create") {
+      response = await createUser(username, password, fullName);
+    }
 
-  async function createUser() {
-    const newUserInfo = {
-      username,
-      password,
-      fullName,
-    };
-
-    let response = await fetch("/create-user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUserInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("users", data);
-        setLoggedIn(true);
-      });
-
-    return response;
+    response === 200 && setLoggedIn(true);
   }
 
   useEffect(() => {
     if (submitLogin) {
-      loginUser();
+      handleResponse("login");
     }
+
+    return () => setSubmitLogin(false);
   });
 
   useEffect(() => {
     if (submitCreateUser) {
-      createUser();
+      handleResponse("create");
     }
+
+    return () => setSubmitCreateUser(false);
   });
 
   if (loggedIn) {
