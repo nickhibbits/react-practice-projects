@@ -30,4 +30,4 @@ function _createUser(fullName, username, password) {
   });
 }
 
-module.exports = { _getUser };
+module.exports = { _getUser, _createUser };

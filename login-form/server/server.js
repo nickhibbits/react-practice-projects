@@ -18,3 +18,11 @@ app.post("/login", jsonParser, async (req, res) => {
     res.send(response);
   });
 });
+
+app.post("/create-user", jsonParser, async (req, res) => {
+  const { username, password, fullName } = req.body;
+  database._createUser(fullName, username, password).then((response) => {
+    console.log("users", response);
+    res.send(response);
+  });
+});

@@ -21,12 +21,13 @@ function App() {
 
     setUsername(data.username);
     setPassword(data.password);
+    data.fullName && setFullName(data.fullName);
 
     createUser ? setSubmitCreateUser(true) : setSubmitLogin(true);
   }
 
   async function loginUser() {
-    const body = {
+    const userInfo = {
       username,
       password,
     };
@@ -36,11 +37,11 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(userInfo),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.response === "success") {
           setLoggedIn(true);
         }
@@ -50,23 +51,23 @@ function App() {
   }
 
   async function createUser() {
-    const body = {
+    const newUserInfo = {
       username,
       password,
       fullName,
     };
 
-    let response = await fetch("/createUser", {
+    let response = await fetch("/create-user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(newUserInfo),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log("users", data);
-        setNewUser(true);
+        setLoggedIn(true);
       });
 
     return response;

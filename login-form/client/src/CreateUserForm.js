@@ -17,7 +17,9 @@ function CreateUserForm({ handleSubmit }) {
     <div className="create__user__form__component">
       <div className="form__wrapper">
         <form
-          onSubmit={(e) => handleSubmit(e, { username, password, fullName })}
+          onSubmit={(e) =>
+            handleSubmit(e, { username, password, fullName }, true)
+          }
         >
           <div className="input-wrapper">
             <p className="input-title">Full Name</p>
