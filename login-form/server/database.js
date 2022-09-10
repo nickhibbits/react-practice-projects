@@ -8,26 +8,32 @@ const users = {
 
 function _getUser(username, password) {
   return new Promise((resolve, reject) => {
-    let response = "denied";
-
     if (users[username] && users[username].password === password) {
-      response = "success";
+      setTimeout(() => resolve({ status: 200 }), 2000);
+    } else {
+      reject();
     }
-
-    setTimeout(() => resolve({ response }), 2000);
+  }).catch(() => {
+    return JSON.stringify({ status: 401 });
   });
 }
 
 function _createUser(fullName, username, password) {
   return new Promise((resolve, reject) => {
-    users[username] = {
-      username,
-      password,
-      fullName,
-    };
+    if (!users[username]) {
+      users[username] = {
+        username,
+        password,
+        fullName,
+      };
 
-    setTimeout(() => resolve({ users }), 2000);
+      setTimeout(() => resolve({ status: 200, users }), 2000);
+    } else {
+      reject();
+    }
+  }).catch(() => {
+    return JSON.stringify({ status: 401 });
   });
 }
 
-module.exports = { _getUser, _createUser };
+module.exports = { _getUser, _createUser, users };
