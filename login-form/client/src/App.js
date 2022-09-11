@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import CreateUserForm from "./CreateUserForm";
 import LoginForm from "./LoginForm";
+import Success from "./Success";
 import { loginUser, createUser } from "./utils/UserAPI";
 
 function App() {
@@ -12,11 +13,10 @@ function App() {
   const [fullName, setFullName] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [newUser, setNewUser] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
 
   function handleSubmit(e, data, createUser) {
     e.preventDefault();
-
-    // console.log(data);
 
     setUsername(data.username);
     setPassword(data.password);
@@ -27,16 +27,24 @@ function App() {
 
   async function handleResponse(callType) {
     let response;
-
     if (callType === "login") {
-      response = await loginUser(username, password);
+      response = await loginUser(username, password).then((data) => {
+        setStatusMessage("Successfully Logged In!");
+        return data;
+      });
     }
-
     if (callType === "create") {
-      response = await createUser(username, password, fullName);
+      response = await createUser(username, password, fullName).then((data) => {
+        setStatusMessage("User Successfully created");
+        return data;
+      });
     }
 
-    response === 200 && setLoggedIn(true);
+    console.log("response", response);
+    if (response === 200) {
+      console.log("loggedIn", loggedIn);
+      setLoggedIn(true);
+    }
   }
 
   useEffect(() => {
@@ -56,7 +64,7 @@ function App() {
   });
 
   if (loggedIn) {
-    return <div className="succes">Success</div>;
+    return <Success statusMessage={statusMessage} />;
   }
 
   return (
