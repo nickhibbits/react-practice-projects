@@ -5,12 +5,17 @@ function CreateUserForm({ handleSubmit }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [disabled, setDisabled] = useState(true);
 
   function verifyPassword(_password) {
     setConfirmPassword(_password);
     if (password !== _password) {
+      setDisabled(true);
       alert("Passwords don't match");
+      return;
     }
+
+    setDisabled(false);
   }
 
   return (
@@ -58,6 +63,7 @@ function CreateUserForm({ handleSubmit }) {
             type="submit"
             className="form__submit"
             value="Create Profile"
+            disabled={disabled}
           />
         </form>
       </div>
