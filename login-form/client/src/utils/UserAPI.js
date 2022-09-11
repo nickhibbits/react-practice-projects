@@ -12,11 +12,9 @@ async function loginUser(username, password) {
     body: JSON.stringify(userInfo),
   })
     .then((res) => res.json())
-    .then((response) => {
-      console.log(response);
-      return response.status;
-    })
+    .then((response) => response)
     .catch((error) => {
+      // error doesn't register here without an explicitly thrown error in database.js
       console.log("ERROR", error);
       return error;
     });
@@ -39,11 +37,9 @@ async function createUser(username, password, fullName) {
     body: JSON.stringify(newUserInfo),
   })
     .then((res) => res.json())
-    .then((response) => {
-      console.log("users", response.users);
-      return response.status;
-    })
+    .then((response) => response)
     .catch((error) => {
+      // error doesn't register here without an explicitly thrown error in database.js
       console.log("ERROR", error);
       return error;
     });

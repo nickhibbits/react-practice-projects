@@ -29,22 +29,25 @@ function App() {
     let response;
     if (callType === "login") {
       response = await loginUser(username, password).then((data) => {
-        setStatusMessage("Successfully Logged In!");
-        console.log("data", data);
-        return data;
+        checkStatus(data);
       });
     }
     if (callType === "create") {
       response = await createUser(username, password, fullName).then((data) => {
-        setStatusMessage("User Successfully created");
-        console.log("data", data);
-        return data;
+        checkStatus(data);
       });
     }
 
-    if (response === 200) {
-      console.log("loggedIn", loggedIn);
-      setLoggedIn(true);
+    function checkStatus(response) {
+      if (response.status !== 200) {
+        alert(response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.status === 200) {
+        setStatusMessage(response.message);
+        setLoggedIn(true);
+      }
     }
   }
 

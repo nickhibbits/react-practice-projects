@@ -9,15 +9,24 @@ const users = {
 function _getUser(username, password) {
   return new Promise((resolve, reject) => {
     if (users[username] && users[username].password === password) {
-      setTimeout(() => resolve({ status: 200 }), 2000);
+      setTimeout(() => resolve({ status: 200, message: "Logged In" }), 2000);
     } else {
-      reject();
+      reject("Incorrect username or password");
     }
-  }).catch(() => {
-    throw new Error("Incorrect somthing or other");
-    // console.log("error", error);
-    // return JSON.stringify({ ...error });
-    // return JSON.stringify({ status: 401 });
+  }).catch((error) => {
+    console.log("error", error);
+    // throwing error is the only way it's logged in the catch blocks in both the UserAPI and server files
+    // gives strange JSON related errors that stopped me from doing it
+    // how to pass up a thrown error as JSON?
+    // how to properly pass errors so they use best practices around JS Promises?
+
+    // throw new Error(error);
+
+    const errorObject = {
+      message: error,
+      status: 401,
+    };
+    return JSON.stringify(errorObject);
   });
 }
 
@@ -30,14 +39,19 @@ function _createUser(fullName, username, password) {
         fullName,
       };
 
-      setTimeout(() => resolve({ status: 200, users }), 2000);
+      setTimeout(
+        () => resolve({ status: 200, message: "You Exist", users }),
+        2000
+      );
     } else {
-      reject();
+      reject("User already exists");
     }
-  }).catch(() => {
-    let error = new Error("User already exists");
-    return JSON.stringify({ ...error });
-    // return JSON.stringify({ status: 401 });
+  }).catch((error) => {
+    const errorObject = {
+      message: error,
+      status: 500,
+    };
+    return JSON.stringify(errorObject);
   });
 }
 

@@ -11,9 +11,9 @@ app.listen(8085, () => {
   // database._getUser("hello", "billy").then((res) => console.log(res));
 });
 
-console.log(database.users);
+// console.log(database.users);
 
-app.post("/login", jsonParser, async (req, res) => {
+app.post("/login", jsonParser, async (req, res, next) => {
   const { username, password } = req.body;
   database
     ._getUser(username, password)
@@ -24,7 +24,7 @@ app.post("/login", jsonParser, async (req, res) => {
     })
     .catch((e) => {
       console.log("server error", e);
-      res.send(e);
+      next(e);
     });
 });
 
