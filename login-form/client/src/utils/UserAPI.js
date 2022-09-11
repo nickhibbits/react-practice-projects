@@ -14,9 +14,7 @@ async function loginUser(username, password) {
     .then((res) => res.json())
     .then((response) => {
       console.log(response);
-      if (response.status === 200) {
-        return response.status;
-      }
+      return response.status;
     })
     .catch((error) => {
       console.log("ERROR", error);
@@ -43,9 +41,7 @@ async function createUser(username, password, fullName) {
     .then((res) => res.json())
     .then((response) => {
       console.log("users", response.users);
-      if (response.status === 200) {
-        return response.status;
-      }
+      return response.status;
     })
     .catch((error) => {
       console.log("ERROR", error);

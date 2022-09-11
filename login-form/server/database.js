@@ -14,7 +14,10 @@ function _getUser(username, password) {
       reject();
     }
   }).catch(() => {
-    return JSON.stringify({ status: 401 });
+    throw new Error("Incorrect somthing or other");
+    // console.log("error", error);
+    // return JSON.stringify({ ...error });
+    // return JSON.stringify({ status: 401 });
   });
 }
 
@@ -32,7 +35,9 @@ function _createUser(fullName, username, password) {
       reject();
     }
   }).catch(() => {
-    return JSON.stringify({ status: 401 });
+    let error = new Error("User already exists");
+    return JSON.stringify({ ...error });
+    // return JSON.stringify({ status: 401 });
   });
 }
 

@@ -30,17 +30,18 @@ function App() {
     if (callType === "login") {
       response = await loginUser(username, password).then((data) => {
         setStatusMessage("Successfully Logged In!");
+        console.log("data", data);
         return data;
       });
     }
     if (callType === "create") {
       response = await createUser(username, password, fullName).then((data) => {
         setStatusMessage("User Successfully created");
+        console.log("data", data);
         return data;
       });
     }
 
-    console.log("response", response);
     if (response === 200) {
       console.log("loggedIn", loggedIn);
       setLoggedIn(true);

@@ -15,11 +15,17 @@ console.log(database.users);
 
 app.post("/login", jsonParser, async (req, res) => {
   const { username, password } = req.body;
-  database._getUser(username, password).then((response) => {
-    console.log("login status, ", response);
-    console.log("users", database.users);
-    res.send(response);
-  });
+  database
+    ._getUser(username, password)
+    .then((response) => {
+      console.log("login status, ", response);
+      console.log("users", database.users);
+      res.send(response);
+    })
+    .catch((e) => {
+      console.log("server error", e);
+      res.send(e);
+    });
 });
 
 app.post("/create-user", jsonParser, async (req, res) => {
