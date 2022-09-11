@@ -6,11 +6,11 @@ import Success from "./Success";
 import { loginUser, createUser } from "./utils/UserAPI";
 
 function App() {
-  const [submitLogin, setSubmitLogin] = useState(false);
-  const [submitCreateUser, setSubmitCreateUser] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [submitLogin, setSubmitLogin] = useState(false);
+  const [submitCreateUser, setSubmitCreateUser] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [newUser, setNewUser] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");

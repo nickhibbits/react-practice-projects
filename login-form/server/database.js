@@ -16,9 +16,10 @@ function _getUser(username, password) {
   }).catch((error) => {
     console.log("error", error);
     // throwing error is the only way it's logged in the catch blocks in both the UserAPI and server files
-    // gives strange JSON related errors that stopped me from doing it
-    // how to pass up a thrown error as JSON?
-    // how to properly pass errors so they use best practices around JS Promises?
+    // gives strange JSON related errors that prevented error throwing
+
+    // way to pass up a thrown error as JSON?
+    // best practices on how to properly pass errors using JS Promises?
 
     // throw new Error(error);
 

@@ -58,20 +58,6 @@ const testObject = {
   methods: {
     formatString: function (test) {
       //INSERT YOUR CODE HERE
-      let { myString, maxRepeat } = test;
-      const stringArray = myString.split("");
-
-      const parsedArray = stringArray.filter((item, i, array) => {});
-
-      test.myResult = parsedArray.join("");
-      console.log("myResult", parsedArray);
     },
   },
 };
-
-const [...tests] = testObject.tests;
-const formatString = testObject.methods.formatString;
-
-const testOne = formatString(tests[0]);
-
-console.log(tests[0]);
