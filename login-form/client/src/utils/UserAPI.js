@@ -4,22 +4,24 @@ async function loginUser(username, password) {
     password,
   };
 
-  let response = await fetch("/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userInfo),
-  })
-    .then((res) => res.json())
-    .then((response) => response)
-    .catch((error) => {
-      // error doesn't register here without an explicitly thrown error in database.js
-      console.log("ERROR", error);
+  let response = async () => {
+    try {
+      await fetch("/login", {
+        method: "POST",
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        body: JSON.stringify(userInfo),
+      }).then((res) => res);
+    } catch (error) {
+      console.log("ERROR 🟢", error);
       return error;
-    });
+    }
+  };
 
-  return response;
+  console.log("response", response());
+
+  return response();
 }
 
 async function createUser(username, password, fullName) {
